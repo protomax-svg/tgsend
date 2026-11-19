@@ -1,0 +1,30 @@
+# ── Telegram credentials & personal data — NEVER commit these ──
+*.session
+*.session-journal
+config.json
+last_recipient.json
+peers.json
+completions.txt
+api_id*
+api_hash*
+.env
+.env.*
+*.secret
+secrets/
+
+# ── Python ──
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+
+# ── Editors / OS ──
+.idea/
+.vscode/
+*.swp
+.DS_Store

@@ -1,0 +1,40 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "tgsend"
+dynamic = ["version"]
+description = "Send files & messages to Telegram from the terminal — with tab completion, a file picker and readable chat history"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.10"
+authors = [{ name = "protomax-svg" }]
+keywords = ["telegram", "cli", "terminal", "send", "files", "telethon"]
+classifiers = [
+    "Environment :: Console",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS",
+    "Programming Language :: Python :: 3",
+    "Topic :: Communications :: Chat",
+    "Topic :: Utilities",
+]
+dependencies = [
+    "telethon>=1.40",
+    "hachoir>=3.3",   # video duration/size metadata so videos play properly
+]
+
+[project.optional-dependencies]
+fast = ["cryptg>=0.5"]  # much faster uploads/downloads (native crypto)
+
+[project.scripts]
+tg = "tgsend.cli:run"
+tgsend = "tgsend.cli:run"
+
+[project.urls]
+Homepage = "https://github.com/protomax-svg/tgsend"
+Issues = "https://github.com/protomax-svg/tgsend/issues"
+
+[tool.hatch.version]
+path = "src/tgsend/__init__.py"
