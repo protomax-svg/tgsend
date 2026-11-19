@@ -18,19 +18,78 @@ tg -d 0 @bob                          # download the latest photo/file from the 
 
 ## Install
 
-Requires Python 3.10+. With [pipx](https://pipx.pypa.io) or [uv](https://docs.astral.sh/uv/):
+**Requirements:** Python 3.10+, [pipx](https://pipx.pypa.io) or [uv](https://docs.astral.sh/uv/) to install it, and optionally
+[fzf](https://github.com/junegunn/fzf) for the file picker (`-p`) and `bash-completion` for tab completion.
+
+### Arch Linux / Manjaro / EndeavourOS / Omarchy
 
 ```bash
+sudo pacman -S --needed python-pipx fzf bash-completion
+pipx ensurepath
 pipx install "tgsend[fast] @ git+https://github.com/protomax-svg/tgsend"
-# or
-uv tool install "tgsend[fast] @ git+https://github.com/protomax-svg/tgsend"
-
-tg --install-completion     # bash tab completion (open a new terminal afterwards)
+tg --install-completion
 ```
 
-`[fast]` adds `cryptg` for much faster uploads and downloads. Drop it if it fails to build on your system.
+### Ubuntu / Debian / Linux Mint / Pop!_OS
 
-For the file picker (`-p`) you also need [fzf](https://github.com/junegunn/fzf) (`sudo pacman -S fzf`, `sudo apt install fzf`, `brew install fzf`).
+Works on Ubuntu 22.04+ and Debian 12+.
+
+```bash
+sudo apt update
+sudo apt install pipx fzf bash-completion
+pipx ensurepath
+pipx install "tgsend[fast] @ git+https://github.com/protomax-svg/tgsend"
+tg --install-completion
+```
+
+> Don't use plain `pip install`. Ubuntu 23.04+ and Debian 12+ block it with an
+> `externally-managed-environment` error. That's expected; pipx is the right tool.
+>
+> On **older releases** (Ubuntu 20.04, Debian 11), the system Python is too old. Use the uv method below, which
+> downloads a newer Python for you.
+
+### Fedora
+
+```bash
+sudo dnf install pipx fzf bash-completion
+pipx ensurepath
+pipx install "tgsend[fast] @ git+https://github.com/protomax-svg/tgsend"
+tg --install-completion
+```
+
+### Any other Linux (with uv)
+
+[uv](https://docs.astral.sh/uv/) needs no system packages, and it installs a suitable Python by itself if yours is too old:
+
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+uv tool install "tgsend[fast] @ git+https://github.com/protomax-svg/tgsend"
+tg --install-completion
+```
+
+Install `fzf` with your package manager if you want the file picker.
+
+### After installing
+
+- **Open a new terminal**, so the `tg` command (from `pipx ensurepath`) and tab completion become available.
+- **`tg: command not found`?** Make sure `~/.local/bin` is in your `PATH`. Run `pipx ensurepath` or `uv tool update-shell`, then open a new terminal.
+- **`[fast]`** adds `cryptg` for much faster uploads and downloads. If it fails to install on your system, run
+  the same command without `[fast]`.
+
+### Update
+
+```bash
+pipx reinstall tgsend        # or: uv tool upgrade tgsend
+```
+
+### Uninstall
+
+```bash
+tg --logout                  # ends the Telegram session and deletes it
+pipx uninstall tgsend        # or: uv tool uninstall tgsend
+rm -rf ~/.config/tgsend ~/.local/share/tgsend ~/.cache/tgsend \
+       ~/.local/share/bash-completion/completions/{tg,tgsend}
+```
 
 ## Setup (once)
 

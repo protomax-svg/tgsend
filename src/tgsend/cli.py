@@ -519,7 +519,7 @@ def pick_files(root, who, candidates):
          "--nth=2", "--prompt", f"send to {who} › ",
          "--header", "TAB select · Ctrl-A all · Ctrl-D none · Enter send · Esc cancel",
          "--bind", "ctrl-a:select-all,ctrl-d:deselect-all",
-         "--preview", preview, "--preview-window=right,45%,wrap"],
+         "--preview", preview, "--preview-window=right:45%:wrap"],
         input="\n".join(lines), text=True, stdout=subprocess.PIPE, cwd=root)
     if r.returncode not in (0, 1):
         return []
